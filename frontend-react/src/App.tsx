@@ -14,7 +14,6 @@ type Task = {
 };
 
 function parseTasks(text: string): Task[] {
-  // Example line: "1. buy milk at 6 pm ⏳"
   const lines = text.split("\n").slice(1);
   const tasks: Task[] = [];
 
@@ -27,7 +26,9 @@ function parseTasks(text: string): Task[] {
     const status = line.includes("✅") ? "Completed" : "Pending";
 
     const timeMatch = line.match(/at (.+)/);
-    const time = timeMatch ? timeMatch[1].replace("⏳", "").replace("✅", "").trim() : undefined;
+    const time = timeMatch
+      ? timeMatch[1].replace("⏳", "").replace("✅", "").trim()
+      : undefined;
 
     const title = line
       .replace(/^(\d+)\.\s*/, "")
@@ -42,7 +43,7 @@ function parseTasks(text: string): Task[] {
   return tasks;
 }
 
-function App() {
+export default function App() {
   const [messages, setMessages] = useState<Message[]>([
     { sender: "bot", text: "👋 Hi! I can help manage your tasks." }
   ]);
@@ -68,10 +69,9 @@ function App() {
 
     try {
       const res = await fetch(
-  `https://taskbot-production-e2a6.up.railway.app/chat/?message=${encodeURIComponent(userText)}`,
-  { method: "POST" }
-);
-
+        `https://taskbot-production-e2a6.up.railway.app/chat/?message=${encodeURIComponent(userText)}`,
+        { method: "POST" }
+      );
 
       const data = await res.json();
 
@@ -79,7 +79,6 @@ function App() {
         const filtered = prev.filter(m => !m.typing);
         return [...filtered, { sender: "bot", text: data.reply }];
       });
-
     } catch {
       setMessages(prev => {
         const filtered = prev.filter(m => !m.typing);
@@ -89,22 +88,32 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600">
-      <div className="w-[380px] h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+    <div className="min-h-screen w-full flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-indigo-700 via-purple-600 to-pink-500">
+      
+      {/* Background overlay */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+
+      {/* Chat container */}
+      <div className="relative z-10 w-[380px] h-[600px] bg-white/90 backdrop-blur-lg rounded-2xl shadow-2xl flex flex-col overflow-hidden">
 
         {/* Header */}
-        <div className="bg-indigo-600 text-white text-center py-4">
-          <h1 className="font-bold text-lg">🤖 TaskBot</h1>
-          <p className="text-xs opacity-90">Online</p>
+        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-center py-4">
+          <h1 className="font-bold text-lg tracking-wide">🤖 TaskBot</h1>
+          <p className="text-xs opacity-90 flex items-center justify-center gap-2">
+            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            Online
+          </p>
         </div>
 
-        {/* Chat */}
+        {/* Chat messages */}
         <div className="flex-1 bg-gray-50 p-4 space-y-3 overflow-y-auto">
           {messages.map((msg, idx) => {
-            // Typing indicator
             if (msg.typing) {
               return (
-                <div key={idx} className="bg-gray-200 px-4 py-2 rounded-xl w-fit flex gap-1">
+                <div
+                  key={idx}
+                  className="bg-gray-200 px-4 py-2 rounded-xl w-fit flex gap-1"
+                >
                   <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" />
                   <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:150ms]" />
                   <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:300ms]" />
@@ -112,7 +121,6 @@ function App() {
               );
             }
 
-            // Task cards
             if (msg.text?.startsWith("📋")) {
               const tasks = parseTasks(msg.text);
               return (
@@ -125,7 +133,9 @@ function App() {
                       <div className="font-semibold">📝 {task.title}</div>
                       <div className="text-xs text-gray-500 mt-1 flex gap-2">
                         <span>
-                          {task.status === "Completed" ? "✅ Completed" : "⏳ Pending"}
+                          {task.status === "Completed"
+                            ? "✅ Completed"
+                            : "⏳ Pending"}
                         </span>
                         {task.time && <span>⏰ {task.time}</span>}
                       </div>
@@ -135,14 +145,14 @@ function App() {
               );
             }
 
-            // Normal message
             return (
               <div
                 key={idx}
                 className={`text-sm px-4 py-2 rounded-xl max-w-[75%]
-                  ${msg.sender === "user"
-                    ? "bg-indigo-600 text-white ml-auto"
-                    : "bg-gray-200 text-gray-900"
+                  ${
+                    msg.sender === "user"
+                      ? "bg-indigo-600 text-white ml-auto"
+                      : "bg-gray-200 text-gray-900"
                   }`}
               >
                 {msg.text}
@@ -153,7 +163,7 @@ function App() {
         </div>
 
         {/* Input */}
-        <div className="p-3 border-t flex gap-2">
+        <div className="p-3 border-t flex gap-2 bg-white">
           <input
             type="text"
             value={input}
@@ -169,10 +179,7 @@ function App() {
             ➤
           </button>
         </div>
-
       </div>
     </div>
   );
 }
-
-export default App;

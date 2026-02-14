@@ -1,97 +1,78 @@
-<div align="center">
+# 🤖 TaskBot — AI Task Management Chatbot
 
-# 🤖 TaskBot  
-### AI-Driven Task Management Chatbot (Full-Stack)
-
-A production-ready, full-stack chatbot that allows users to manage daily tasks using **natural language commands** — built to demonstrate **real-world backend, frontend, and deployment skills**.
-
-🚀 Live • 🌐 Deployed • 🧠 NLP-Powered
-
-</div>
+TaskBot is a production-ready full-stack chatbot that allows users to manage daily tasks using **natural language commands**.  
+The project demonstrates real-world backend, frontend, and cloud deployment skills.
 
 ---
 
 ## 🌍 Live Application
 
 - **Frontend (Vercel)**  
-  🔗 https://taskbot-lnzh.vercel.app/
+  https://taskbot-lnzh.vercel.app/
 
 - **Backend API (Railway)**  
-  🔗 https://taskbot-production-e2a6.up.railway.app/
+  https://taskbot-production-e2a6.up.railway.app/
 
-- **API Documentation (Swagger)**  
-  🔗 https://taskbot-production-e2a6.up.railway.app/docs
-
----
-
-## 🧠 Why This Project Matters
-
-TaskBot simulates a **real product scenario** where users interact with a system conversationally instead of through forms.
-
-This project demonstrates:
-- Designing **API-driven architectures**
-- Handling **natural language input**
-- Building **responsive UI components**
-- Managing **stateful backend logic**
-- Deploying & debugging in **production environments**
+- **API Documentation (Swagger UI)**  
+  https://taskbot-production-e2a6.up.railway.app/docs
 
 ---
 
 ## ✨ Key Features
 
-- 🗣️ **Natural Language Task Commands**
-- ➕ Add tasks with date & time parsing
-- 📋 Task rendering using card-based UI
-- ✅ Complete tasks via chat
-- 🗑️ Delete tasks
-- ⏳ AI typing indicator for better UX
-- 🌐 End-to-end deployed system
+- Natural language task commands
+- Add tasks with date & time parsing
+- View tasks in a card-based UI
+- Mark tasks as completed
+- Delete tasks
+- Chat-style interface
+- AI typing indicator
+- Fully deployed backend and frontend
 
 ---
 
-## 🧪 Sample User Commands
+## 🧪 Example Commands
 
 ```text
-add buy groceries tomorrow at 6 pm
+add buy milk tomorrow at 6 pm
 my tasks
 complete task 1
 delete task 1
-🛠️ Technology Stack
+🛠️ Tech Stack
 Backend
-FastAPI — REST API design
+FastAPI
 
-SQLAlchemy — ORM & data modeling
+SQLAlchemy
 
-SQLite — lightweight persistent storage
+SQLite
 
 Python
 
-Railway — cloud deployment
+Railway
 
 Frontend
-React (Vite) — fast SPA architecture
+React (Vite)
 
-TypeScript — type-safe UI logic
+TypeScript
 
-Tailwind CSS — modern styling
+Tailwind CSS
 
-Vercel — frontend deployment
+Vercel
 
-📂 Project Architecture
+📂 Project Structure
 taskbot/
 ├── backend/
 │   ├── app/
-│   │   ├── api/        # API routes
-│   │   ├── models/    # Database models
-│   │   ├── services/  # NLP logic
-│   │   ├── utils/     # Date & time parsing
+│   │   ├── api/
+│   │   ├── models/
+│   │   ├── services/
+│   │   ├── utils/
 │   │   ├── database.py
 │   │   └── main.py
 │   └── requirements.txt
 │
 ├── frontend-react/
 │   ├── src/
-│   ├── components/
 │   └── package.json
 │
 └── README.md
@@ -106,44 +87,39 @@ Frontend
 cd frontend-react
 npm install
 npm run dev
-🚀 Deployment Strategy
-Backend deployed on Railway with production environment variables
+🚀 Deployment
+Backend deployed on Railway
 
 Frontend deployed on Vercel
 
-CI/CD via GitHub push triggers
+Automatic redeployments on GitHub push
 
-📈 What I Learned
-Structuring scalable FastAPI projects
+📈 What This Project Demonstrates
+Full-stack ownership
 
-Handling NLP-style user input without external AI APIs
+Clean API design with FastAPI
 
-Debugging cloud deployment issues (paths, imports, environment)
+Natural language input handling
 
-Building clean, reusable React components
+Production debugging & cloud deployment
 
-End-to-end ownership of a production system
+Modern React + Tailwind UI patterns
 
-🔮 Future Enhancements
-User authentication (multi-user support)
+🔮 Future Improvements
+User authentication
 
-Task reminders & scheduled notifications
+Task reminders & notifications
 
-OpenAI-powered NLP understanding
+OpenAI-powered NLP
 
-Calendar & email integrations
+Calendar integration
 
 Mobile app version
 
-👨‍💻 About the Author
+👨‍💻 Author
 Karan Kumar
-Software Engineer | Full-Stack Developer
 
 GitHub: https://github.com/Karan466
 
-Passionate about backend systems, APIs, and scalable applications
+⭐ If you like this project, consider giving it a star!
 
-<div align="center">
-⭐ If this project interests you, feel free to star the repository!
-
-</div> ```

@@ -68,9 +68,10 @@ function App() {
 
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/chat/?message=${encodeURIComponent(userText)}`,
-        { method: "POST" }
-      );
+  `https://taskbot-production-e2a6.up.railway.app/chat/?message=${encodeURIComponent(userText)}`,
+  { method: "POST" }
+);
+
 
       const data = await res.json();
 

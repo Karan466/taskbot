@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from backend.app.database import SessionLocal
-from backend.app.models.task import Task
-from backend.app.services.nlp import detect_intent
-from backend.app.utils.date_parser import parse_human_date
-from backend.app.utils.time_parser import parse_time
+from app.database import SessionLocal
+from app.models.task import Task
+from app.services.nlp import detect_intent
+from app.utils.date_parser import parse_human_date
+from app.utils.time_parser import parse_time
 
 router = APIRouter(prefix="/chat", tags=["Chatbot"])
 

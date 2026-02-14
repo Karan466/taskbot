@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.app.database import Base, engine
-from backend.app.models.task import Task
-from backend.app.api.tasks import router as task_router
-from backend.app.api.chat import router as chat_router
+from app.database import Base, engine
+from app.models.task import Task
+from app.api.tasks import router as task_router
+from app.api.chat import router as chat_router
+
 
 app = FastAPI(title="Task Management Chatbot")
 

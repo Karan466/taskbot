@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from backend.app.database import SessionLocal
-from backend.app.models.task import Task
+from app.database import SessionLocal
+from app.models.task import Task
 from datetime import datetime
 
 router = APIRouter(prefix="/tasks", tags=["Tasks"])

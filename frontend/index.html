@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TaskBot 🤖</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="chat-app">
+    <div class="chat-header">
+        <div class="bot-name">🤖 TaskBot</div>
+        <div class="bot-status">Online</div>
+    </div>
+
+    <div class="chat-body" id="chatBox">
+        <div class="bot-message">👋 Hi! I can manage your daily tasks.</div>
+    </div>
+
+    <div class="chat-footer">
+        <input
+            type="text"
+            id="messageInput"
+            placeholder="Type a message..."
+            autocomplete="off"
+        />
+        <button onclick="sendMessage()">➤</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

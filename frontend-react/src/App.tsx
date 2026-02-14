@@ -1,0 +1,177 @@
+import { useState, useRef, useEffect } from "react";
+
+type Message = {
+  sender: "user" | "bot";
+  text?: string;
+  typing?: boolean;
+};
+
+type Task = {
+  id: number;
+  title: string;
+  status: "Pending" | "Completed";
+  time?: string;
+};
+
+function parseTasks(text: string): Task[] {
+  // Example line: "1. buy milk at 6 pm ⏳"
+  const lines = text.split("\n").slice(1);
+  const tasks: Task[] = [];
+
+  lines.forEach(line => {
+    if (!line.trim()) return;
+
+    const idMatch = line.match(/^(\d+)\./);
+    const id = idMatch ? Number(idMatch[1]) : Math.random();
+
+    const status = line.includes("✅") ? "Completed" : "Pending";
+
+    const timeMatch = line.match(/at (.+)/);
+    const time = timeMatch ? timeMatch[1].replace("⏳", "").replace("✅", "").trim() : undefined;
+
+    const title = line
+      .replace(/^(\d+)\.\s*/, "")
+      .replace("✅", "")
+      .replace("⏳", "")
+      .replace(/at .*/, "")
+      .trim();
+
+    tasks.push({ id, title, status, time });
+  });
+
+  return tasks;
+}
+
+function App() {
+  const [messages, setMessages] = useState<Message[]>([
+    { sender: "bot", text: "👋 Hi! I can help manage your tasks." }
+  ]);
+  const [input, setInput] = useState("");
+  const chatEndRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const sendMessage = async () => {
+    if (!input.trim()) return;
+
+    const userText = input;
+
+    setMessages(prev => [
+      ...prev,
+      { sender: "user", text: userText },
+      { sender: "bot", typing: true }
+    ]);
+
+    setInput("");
+
+    try {
+      const res = await fetch(
+        `http://127.0.0.1:8000/chat/?message=${encodeURIComponent(userText)}`,
+        { method: "POST" }
+      );
+
+      const data = await res.json();
+
+      setMessages(prev => {
+        const filtered = prev.filter(m => !m.typing);
+        return [...filtered, { sender: "bot", text: data.reply }];
+      });
+
+    } catch {
+      setMessages(prev => {
+        const filtered = prev.filter(m => !m.typing);
+        return [...filtered, { sender: "bot", text: "❌ Server not reachable" }];
+      });
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600">
+      <div className="w-[380px] h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+
+        {/* Header */}
+        <div className="bg-indigo-600 text-white text-center py-4">
+          <h1 className="font-bold text-lg">🤖 TaskBot</h1>
+          <p className="text-xs opacity-90">Online</p>
+        </div>
+
+        {/* Chat */}
+        <div className="flex-1 bg-gray-50 p-4 space-y-3 overflow-y-auto">
+          {messages.map((msg, idx) => {
+            // Typing indicator
+            if (msg.typing) {
+              return (
+                <div key={idx} className="bg-gray-200 px-4 py-2 rounded-xl w-fit flex gap-1">
+                  <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" />
+                  <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:150ms]" />
+                  <span className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:300ms]" />
+                </div>
+              );
+            }
+
+            // Task cards
+            if (msg.text?.startsWith("📋")) {
+              const tasks = parseTasks(msg.text);
+              return (
+                <div key={idx} className="space-y-2">
+                  {tasks.map(task => (
+                    <div
+                      key={task.id}
+                      className="bg-white rounded-xl shadow px-4 py-3 text-sm"
+                    >
+                      <div className="font-semibold">📝 {task.title}</div>
+                      <div className="text-xs text-gray-500 mt-1 flex gap-2">
+                        <span>
+                          {task.status === "Completed" ? "✅ Completed" : "⏳ Pending"}
+                        </span>
+                        {task.time && <span>⏰ {task.time}</span>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              );
+            }
+
+            // Normal message
+            return (
+              <div
+                key={idx}
+                className={`text-sm px-4 py-2 rounded-xl max-w-[75%]
+                  ${msg.sender === "user"
+                    ? "bg-indigo-600 text-white ml-auto"
+                    : "bg-gray-200 text-gray-900"
+                  }`}
+              >
+                {msg.text}
+              </div>
+            );
+          })}
+          <div ref={chatEndRef} />
+        </div>
+
+        {/* Input */}
+        <div className="p-3 border-t flex gap-2">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type a message..."
+            className="flex-1 px-4 py-2 text-sm border rounded-full outline-none focus:ring-2 focus:ring-indigo-500"
+            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+          />
+          <button
+            onClick={sendMessage}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-full"
+          >
+            ➤
+          </button>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+export default App;

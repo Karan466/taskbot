@@ -1,33 +1,33 @@
 # 🤖 TaskBot — AI Task Management Chatbot
 
 TaskBot is a production-ready full-stack chatbot that allows users to manage daily tasks using **natural language commands**.  
-The project demonstrates real-world backend, frontend, and cloud deployment skills.
+The project demonstrates real-world **backend, frontend, and cloud deployment** skills.
 
 ---
 
 ## 🌍 Live Application
 
-- **Frontend (Vercel)**  
-  https://taskbot-lnzh.vercel.app/
+### Frontend (Vercel)
+https://taskbot-lnzh.vercel.app/
 
-- **Backend API (Railway)**  
-  https://taskbot-production-e2a6.up.railway.app/
+### Backend API (Railway)
+https://taskbot-production-e2a6.up.railway.app/
 
-- **API Documentation (Swagger UI)**  
-  https://taskbot-production-e2a6.up.railway.app/docs
+### API Documentation (Swagger UI)
+https://taskbot-production-e2a6.up.railway.app/docs
 
 ---
 
 ## ✨ Key Features
 
-- Natural language task commands
-- Add tasks with date & time parsing
-- View tasks in a card-based UI
-- Mark tasks as completed
-- Delete tasks
-- Chat-style interface
-- AI typing indicator
-- Fully deployed backend and frontend
+- Natural language task commands  
+- Add tasks with date & time parsing  
+- View tasks in a card-based UI  
+- Mark tasks as completed  
+- Delete tasks  
+- Chat-style interface  
+- AI typing indicator  
+- Fully deployed backend and frontend  
 
 ---
 
@@ -38,6 +38,7 @@ add buy milk tomorrow at 6 pm
 my tasks
 complete task 1
 delete task 1
+```
 🛠️ Tech Stack
 Backend
 FastAPI
@@ -118,8 +119,6 @@ Mobile app version
 
 👨‍💻 Author
 Karan Kumar
-
 GitHub: https://github.com/Karan466
 
 ⭐ If you like this project, consider giving it a star!
-
